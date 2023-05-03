@@ -1,1 +1,84 @@
-1
+Задание:
+Создать каталоги students и mentors в домашней директории, а в них — текстовые файлы students_list.txt и mentors_list.txt соответственно.
+Открыть созданные в п.1 файлы в любом текстовом редакторе и заполнить их (в соответствии с названием) списком Ваших одногруппников и наставников на данном потоке.
+Переместите файл mentors_list.txt в папку students.
+Удалите папку mentors.
+Переименуйте папку students в students_and_mentors.
+Удалите папку students_and_mentors вместе с содержимым.
+7 *. Создать файл file1 и наполнить его произвольным содержимым. Скопировать его в file2. Создать символическую ссылку file3 на file1. Создать жёсткую ссылку file4 на file1. Посмотреть, какие inode у файлов. Удалить file1. Что стало с остальными созданными файлами? Попробовать вывести их на экран.
+8 *. Дать созданным файлам другие, произвольные имена. Создать новую символическую ссылку. Переместить ссылки в другую директорию.
+
+
+mkdir students mentors
+
+
+touch students/students_list.txt
+touch mentors/mentors_list.txt
+
+
+cat > students_list.txt << stop
+Viktoria Molcanova
+Olya Motorina
+stop
+
+cat > mentors_list.txt << stop
+Vladislav Vinukov
+Kirill Ivanov
+stop
+
+
+mv mentors/mentors_list.txt students/
+
+
+rm -r mentors/
+
+
+mv students students_and_mentors
+
+
+rm -r students_mentors
+
+cat > file1 << stop
+111111
+222222
+stop
+
+cp file1 file2
+cat > file2 <<
+33333
+44444
+stop
+
+ln -s file1 file3
+
+ln file1 file4
+
+total 56
+397260 -rw-rw-r-- 2 vboxuser vboxuser 31 Мая  3 11:20 file1
+397375 -rw-rw-r-- 1 vboxuser vboxuser 22 Мая  3 11:20 file2
+397429 lrwxrwxrwx 1 vboxuser vboxuser  5 Мая  3 11:52 file3 -> file1
+397260 -rw-rw-r-- 2 vboxuser vboxuser 22 Мая  3 11:20 file4
+
+
+rm file1
+
+cat file2
+33333
+44444
+
+cat file3
+cat: file3: No such file or directory
+
+cat file4
+33333
+44444
+
+mv file2 drugoi_file2
+mv file3 drugoi_file3
+mv file4 drugoi_file4
+
+ ln -s drugoi_file2 file2_link
+
+ mv file2_link /tmp/
+ mv drugoi_file3 /tmp/
+ mv drugoi_file4 /tmp/
